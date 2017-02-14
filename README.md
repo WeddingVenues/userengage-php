@@ -69,7 +69,7 @@ Actually sends off the request to the UserEngage API. The only parameter (`$deco
 
 ---
 
-**The SDK will throw exceptions when something is wrong, so it's recommended to wrap all requests in a `try { } catch() { }` block. 
+**The SDK will throw exceptions when something is wrong, so it's recommended to wrap all requests in a `try { } catch() { }` block.**
 
 <a name="usecases"></a>
 ## 4. Use Cases
@@ -79,60 +79,62 @@ The following code snippets show some basic use cases of the SDK in action.
 **i. Triggering an event**<br />
 We will trigger an event (which can be used inside an Action) called `card_expired`, and pass through some basic data with the event (that we can then use to filter the request, or send in an [email message](https://userengage.io/en/docs/event-data-in-emails):
 	
-	<?php 
-	
-	try
-	{
-		$ue = new UserEngage( 'YOUR_API_KEY' );
-		$ue->setEndpoint( 'events' );
-		$ue->addField( 'name', 'card_expired' );
-	    
-		// Add some event data about the expired card:
-		$data = new stdClass();
-		$data->last4Digits = '1234';
-		$data->expiryDate  = '12/18';
-	    
-		// Now create the event
-		// Pass through the timestamp of the event, and the client it should be raised against.
-		$ue->addField( 'timestamp', time() );
-		$ue->addField( 'client', 'ID_OF_CLIENT' );
-		
-		// Finally assign our data:
-		$ue->addField( 'data', $data );
-	    
-		// Send the request, and print_r the response:
-		print_r( $ue->send() );
-	}
-	
-	// Catch any errors:
-	catch( Exception $e )
-	{
-		echo $e->getMessage();
-	}
-	
+```php
+<?php 
+
+try
+{
+    $ue = new UserEngage( 'YOUR_API_KEY' );
+    $ue->setEndpoint( 'events' );
+    $ue->addField( 'name', 'card_expired' );
+    
+    // Add some event data about the expired card:
+    $data = new stdClass();
+    $data->last4Digits = '1234';
+    $data->expiryDate  = '12/18';
+    
+    // Now create the event
+    // Pass through the timestamp of the event, and the client it should be raised against.
+    $ue->addField( 'timestamp', time() );
+    $ue->addField( 'client', 'ID_OF_CLIENT' );
+    
+    // Finally assign our data:
+    $ue->addField( 'data', $data );
+    
+    // Send the request, and print_r the response:
+    print_r( $ue->send() );
+}
+
+// Catch any errors:
+catch( Exception $e )
+{
+    echo $e->getMessage();
+}
+```
 ----
 
 **ii. Create a new User:**<br />
 This example will create a new User in your UserEngage account using the [`users/`](https://userengage.io/en-gb/api/user/create/) endpoint:
 
-	<?php
-	
-	try
-	{
-		$ue = new UserEngage( 'YOUR_API_KEY' );
-		$ue->setEndpoint( 'users' );
-		
-		// Add the required fields:
-		$ue->addField( 'email': 'someone@domain.com' );
-		$ue->addField( 'first_name': 'John' );
-		$ue->addField( 'last_name': 'Doe' );
-		
-		print_r( $ue->send() );
-	}
-	catch( Exception $e )
-	{
-		echo $e->getMessage();
-	}
+```php
+<?php
+
+try
+{
+    $ue = new UserEngage( 'YOUR_API_KEY' );
+    $ue->setEndpoint( 'users' );
+    
+    // Add the required fields:
+    $ue->addField( 'email': 'someone@domain.com' );
+    $ue->addField( 'first_name': 'John' );
+    $ue->addField( 'last_name': 'Doe' );
+    
+    print_r( $ue->send() );
+}
+catch( Exception $e )
+{
+    echo $e->getMessage();
+}
 
 <a name="troubleshooting"></a>
 ## 5. Troubleshooting
