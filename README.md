@@ -135,7 +135,7 @@ catch( Exception $e )
 {
     echo $e->getMessage();
 }
-
+```
 <a name="troubleshooting"></a>
 ## 5. Troubleshooting
 
